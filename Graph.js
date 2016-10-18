@@ -1,4 +1,7 @@
-var findLadders = function(beginWord, endWord, wordList) {
+var findLadders = function(beginWord, endWord, wordList) {  
+    wordList.delete(beginWord);
+    wordList.delete(endWord);
+    
     function Node(data) {
         this.data = data;
     }
@@ -27,7 +30,7 @@ var findLadders = function(beginWord, endWord, wordList) {
         var b = y.split('');
         var count = 0;
         for(var i = 0; i < b.length; i++) {
-            if(a.indexOf(b[i]) >= 0) {
+            if(a[i] !== b[i]) {
                 count += 1;
             }
         }
