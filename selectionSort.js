@@ -14,12 +14,12 @@ function selectionSort(arr) {
         arr[minIndex] = temp;
     }
     console.timeEnd('选择排序耗时');
-    return arr;
+    //return arr;
 }
 var arr=[3,44,38,5,47,15,36,26,27,2,46,4,19,50,48];
-console.log(selectionSort(arr));
+//console.log(selectionSort(arr));
 
-/*function createArray(num) {
+function createArray(num) {
     let arr = [];
     for(let i = 0; i < num; i++) {
         arr[i] = Math.floor(Math.random() * (num + 1));
@@ -27,4 +27,4 @@ console.log(selectionSort(arr));
     return arr;
 }
 
-console.log(selectionSort(createArray(10000)));*/
+console.log(selectionSort(createArray(100000)));
