@@ -1,15 +1,17 @@
 //在计算机科学中，二叉树是每个节点最多有两个子树的树结构。通常子树被称作“左子树”（left subtree）和“右子树”（right subtree）。二叉树常被用于实现二叉查找树和二叉堆。
 //二叉树的每个结点至多只有二棵子树(不存在度大于2的结点)，二叉树的子树有左右之分，次序不能颠倒。二叉树的第i层至多有2^{i-1}个结点；深度为k的二叉树至多有2^k-1个结点；
-//对任何一棵二叉树T，如果其终端结点数为n_0，度为2的结点数为n_2，则n_0=n_2+1。
+
 //一棵深度为k，且有2^k-1个节点称之为满二叉树；深度为k，有n个节点的二叉树，当且仅当其每一个节点都与深度为k的满二叉树中，序号为1至n的节点对应时，称之为完全二叉树。
 
+
+// BST
 //1. 若任意节点的左子树不空，则左子树上所有结点的值均小于它的根结点的值；
 
 //2. 若任意节点的右子树不空，则右子树上所有结点的值均大于它的根结点的值；
 
 //3. 任意节点的左、右子树也分别为二叉查找树。
 
-//4. 没有键值相等的节点（no duplicate nodes）。
+//4. 没有键值相等的节点。
 
 function Node(data, left, right) {     //data 作为排序的索引值，
    this.data = data;
@@ -41,12 +43,15 @@ function BST() {
 }
 
 function insert(data) {
+    if(!(this.find(data))) {
+
+    
    var n = new Node(data, null, null);
    if (this.root == null) {
       this.root = n;
    }
    else {
-      var current = this.root;
+      var current = this.root; 
       var parent;
       while (true) {
          parent = current;
@@ -67,10 +72,16 @@ function insert(data) {
       }
    }
 }
+}
 //中序
+var newArr = []
 function inOrder(node) {
    if (!(node == null)) {
       inOrder(node.left);
+    //   while(node.count) {
+    //       newArr.push(node.data);
+    //       node.count--;
+    //   }
       console.log(node.show() + " ");
       //console.log(node.count);
       inOrder(node.right);
@@ -187,7 +198,7 @@ function depthFirstSearch(node) {    //使用栈
     stack.push(node);
     while(stack.length > 0) {
         var currentNode = stack.pop();
-        console.log(currentNode.show() + '');
+        //console.log(currentNode.show() + '');
         if(currentNode.right !== null) {
             stack.push(currentNode.right);
         }
@@ -205,7 +216,7 @@ function breadthFirstSearch(node) {   //使用队列
     queue.push(node);
     while(queue.length > 0) {
         var currentNode = queue.shift();
-        console.log(currentNode.show() + '');
+        //console.log(currentNode.show() + '');
         if(currentNode.left !== null) {
             queue.push(currentNode.left);
         }
@@ -215,16 +226,17 @@ function breadthFirstSearch(node) {   //使用队列
     }
 }
 
-// function createArray(num) {
-//     let arr = [];
-//     for(let i = 0; i < num; i++) {
-//         arr[i] = Math.floor(Math.random() * (num + 1));
-//     }
-//     return arr;
-// }
+function createArray(num) {
+    let arr = [];
+    for(let i = 0; i < num; i++) {
+        arr[i] = Math.floor(Math.random() * (num + 1));
+    }
+    return arr;
+}
 
-// var nums = createArray(10);
+// var nums = createArray(100000);
 // var tree = new BST();
+// console.time('1二叉树排序耗时');
 // for(var i = 0; i < nums.length; i++) {
 //     var num = nums[i];
 //     var hasNum = tree.find(num);
@@ -234,38 +246,60 @@ function breadthFirstSearch(node) {   //使用队列
 //         tree.update(num);
 //     }
 // }
+// console.timeEnd('1二叉树排序耗时');
 // console.log('breadth-------------------');
 // tree.breadthFirstSearch(tree.root);
 // console.log('depth-------------------');
 // tree.depthFirstSearch(tree.root);
 
+// var tree = new BST();
+// var arr = [30,44,38,5,47,15,36,26,27,2,46,4,19,50,48];
+// for(var i = 0; i < arr.length; i++) {
+//     var num = arr[i];
+//     var hasNum = tree.find(num);
+//     if (!hasNum) {
+//         tree.insert(num);
+//     } else {
+//         tree.update(num);
+//     }
+// }
+
+// console.log('breadth-------------------');
+// console.time('二叉树BFS遍历耗时');
+// tree.breadthFirstSearch(tree.root);
+// console.timeEnd('二叉树BFS遍历耗时');
+// console.log('depth-------------------');
+// console.time('二叉树DFS遍历耗时');
+// tree.depthFirstSearch(tree.root);
+// console.timeEnd('二叉树DFS遍历耗时');
+// tree.remove(44);
+// console.log('breadth-------------------');
+// tree.breadthFirstSearch(tree.root);
+// console.log('depth-------------------');
+// tree.depthFirstSearch(tree.root);
+
+
+
+// console.log('inOrder-------------------');
+// console.time('二叉树排序耗时');
+// tree.inOrder(tree.root);
+// console.timeEnd('二叉树排序耗时');
+// console.log('preOrder-------------------');
+// tree.preOrder(tree.root);
+// console.log('postOrder-------------------');
+// tree.postOrder(tree.root);
+
+var arr = [5,3,6,1,2,4];
 var tree = new BST();
-var arr = [30,44,38,5,47,15,36,26,27,2,46,4,19,50,48];
-for(var i = 0; i < arr.length; i++) {
-    var num = arr[i];
-    var hasNum = tree.find(num);
-    if (!hasNum) {
-        tree.insert(num);
-    } else {
-        tree.update(num);
-    }
+for(var i = 0; i < 6; i++) {
+    
+    tree.insert(arr[i]);
+    //tree.postOrder(tree.root);
+    console.log('postOrder-------------------');
 }
 
-console.log('breadth-------------------');
-tree.breadthFirstSearch(tree.root);
-console.log('depth-------------------');
-tree.depthFirstSearch(tree.root);
-tree.remove(44);
-console.log('breadth-------------------');
-tree.breadthFirstSearch(tree.root);
-console.log('depth-------------------');
-tree.depthFirstSearch(tree.root);
+tree.remove(3);
+tree.preOrder(tree.root);
 
 
 
-
-// tree.inOrder(tree.root);
-// console.log('-------------------');
-// tree.preOrder(tree.root);
-// console.log('-------------------');
-// tree.postOrder(tree.root);
